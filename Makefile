@@ -27,13 +27,15 @@ build-all: build-linux build-windows build-macos
 
 github-release: build-all
 
-	npx standard-version --release-as $(new_version)
-	git push --follow-tags origin master
+	sed -r -i "s/(vlazic\/gpt-project-context\/releases\/download\/)[^\/]+\//\1v$(new_version)\//g" README.md
 
-	@echo "Creating a new GitHub release with the compiled binaries..."
-	gh release create "v$(new_version)" -F CHANGELOG.md $(BINARY_DIR)/*
+	# npx standard-version --release-as $(new_version)
+	# git push --follow-tags origin master
 
-	@echo "Release published."
+	# @echo "Creating a new GitHub release with the compiled binaries..."
+	# gh release create "v$(new_version)" -F CHANGELOG.md $(BINARY_DIR)/*
+
+	# @echo "Release published."
 
 clean:
 	@echo "Cleaning up the build..."
