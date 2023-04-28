@@ -1,38 +1,97 @@
-# gpt-project-context
+# GPT Project Context
 
-`gpt-project-context` is a command-line tool designed to help developers quickly provide context about their project as initial input to ChatGPT. It scans the project files and generates a text output that includes code snippets, file structures, and other relevant information, which can be easily shared with AI language models like OpenAI's ChatGPT.
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/vlazic/gpt-project-context)](
+
+`gpt-project-context` is a command-line tool designed to boost developers' productivity by facilitating seamless interaction with AI language models like OpenAI's ChatGPT. By scanning project files and generating a comprehensive text output consisting of code snippets, file structures, and other relevant details, developers can easily share crucial context about their projects with AI language models.
+
+I, as the author, use this tool for every project, and I'm confident it will help you speed up your work with projects too.
+
+## Installation
+
+To quickly install `gpt-project-context` using binaries from GitHub release, follow the instructions for your operating system:
+
+### macOS
+
+```sh
+# Download the binary for macOS
+curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.1/gpt-project-context-macos"
+
+# Make it executable
+chmod +x gpt-project-context
+
+# Move it to your PATH
+sudo mv gpt-project-context /usr/local/bin/
+```
+
+### Windows
+
+1. Download the `.exe` file from the [GitHub releases page](https://github.com/vlazic/gpt-project-context/releases).
+2. Move the `.exe` file to a folder included in your `PATH` environment variable (e.g., `C:\Windows\System32`).
+
+### Linux
+
+```sh
+# Download the binary for Linux
+curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.1/gpt-project-context-linux"
+
+# Make it executable
+chmod +x gpt-project-context
+
+# Move it to your PATH
+sudo mv gpt-project-context /usr/local/bin/
+```
+
+## Usage
+
+### Include and Exclude Flags
+
+`gpt-project-context` allows you to customize the files included in the output using the `-i` (include) and `-e` (exclude) flags. The `-i` flag specifies which file patterns to include, while the `-e` flag specifies which file patterns to exclude.
+
+All available flags are listed below:
+
+```sh
+Usage of ./bin/gpt-project-context:
+  -e string
+        exclude patterns
+  -i string
+        include patterns
+  -n    no action, do not copy or write to clipboard
+  -o string
+        output file path
+  -p string
+        prompt at the beginning (default "Here is the context of my current project. Just respond with 'OK' and wait for the instructions:")
+```
+
+### Examples
+
+#### Go:
+
+```sh
+gpt-project-context -i '*.go,*.md' -e 'bin/*,*.txt'
+```
+
+#### JavaScript:
+
+```sh
+gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*'
+```
+
+To use this tool more conveniently in a JavaScript project, add it as an npm run script in your `package.json`:
+
+```json
+{
+  "scripts": {
+    "context": "gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*'"
+  }
+}
+```
+
+Now, you can simply run `npm run context` to execute the script.
 
 ## Contributing
 
-We welcome any issues and pull requests in the spirit of having mostly GPT build out this tool. Using [ChatGPT Plus](https://chat.openai.com/) is recommended for quick access to GPT-4 and getting the best results.
-
-## Getting Started
-
-To get started with `gpt-project-context`, follow these steps:
-
-1. Ensure you have Go installed on your system.
-2. Clone or download the `gpt-project-context` repository.
-3. Navigate to the repository's root directory in your terminal.
-4. Run `make build` to build the Go binary.
-5. Use the generated `gpt-project-context` binary with the following command:
-
-   ```bash
-   ./bin/gpt-project-context -i "*.go,*.md" -e "bin/*,*.txt"
-   ```
-
-   Replace the include and exclude patterns as needed for your project. The `-i` flag specifies the file types to include, and the `-e` flag specifies the patterns to exclude.
-
-6. The tool will generate a text output containing the project context. This output will be automatically copied to your clipboard, ready for use with AI language models like ChatGPT.
-
-## Usage Examples
-
-Here are some usage examples for different programming languages:
-
-- Go: `./bin/gpt-project-context -i "*.go,*.md" -e "bin/*,*.txt"`
-- JavaScript: `./bin/gpt-project-context -i "*.js,README.md,package.json" -e "node_modules/*"`
-
-Feel free to adjust the include and exclude patterns to match the specific needs of your project.
+We welcome any issues and pull requests. If you have any questions, please feel free to open an issue.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](LICENSE).

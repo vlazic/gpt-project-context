@@ -23,17 +23,17 @@ build-macos:
 	@GOOS=darwin GOARCH=amd64 go build -o $(BINARY_DIR)/$(BINARY_NAME)-macos main.go
 	@echo "Build for macOS complete."
 
-build-all: build build-windows build-macos
+build-all: build-linux build-windows build-macos
 
-git-release: release
+github-release: release
 	npx standard-version --release-as $(new_version)
 	git push --follow-tags origin master
 
 release: build-all
 	@echo "Creating a new GitHub release with the compiled binaries..."
 	gh release create --title "GPT Project Context v$(new_version)" --notes-file CHANGELOG.md \
-		--attach $(BINARY_DIR)/$(BINARY_NAME) --attach $(BINARY_DIR)/$(BINARY_NAME).exe \
-		--attach $(BINARY_DIR)/$(BINARY_NAME)-macos
+		--attach $(BINARY_DIR)/$(BINARY_NAME).exe \
+		--attach $(BINARY_DIR)/$(BINARY_NAME)-macos \
 		--attach $(BINARY_DIR)/$(BINARY_NAME)-linux
 	@echo "Release published."
 
@@ -41,5 +41,5 @@ clean:
 	@echo "Cleaning up the build..."
 	@rm -f $(BINARY_PATH)
 
-copy-context: build
-	$(BINARY_PATH) -i "*.go,Makefile,help.txt" -e "bin/*,context.txt"
+copy-context: build-linux
+	$(BINARY_PATH)-linux -i "*.go,Makefile,README.md" -e "bin/*,context.txt"
