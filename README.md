@@ -1,6 +1,6 @@
 # GPT Project Context
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/vlazic/gpt-project-context)](
+<!-- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/vlazic/gpt-project-context)] -->
 
 `gpt-project-context` is a command-line tool designed to boost developers' productivity by facilitating seamless interaction with AI language models like OpenAI's ChatGPT. By scanning project files and generating a comprehensive text output consisting of code snippets, file structures, and other relevant details, developers can easily share crucial context about their projects with AI language models.
 

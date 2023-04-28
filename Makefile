@@ -25,16 +25,14 @@ build-macos:
 
 build-all: build-linux build-windows build-macos
 
-github-release: release
+github-release: build-all
+
 	npx standard-version --release-as $(new_version)
 	git push --follow-tags origin master
 
-release: build-all
 	@echo "Creating a new GitHub release with the compiled binaries..."
-	gh release create --title "GPT Project Context v$(new_version)" --notes-file CHANGELOG.md \
-		--attach $(BINARY_DIR)/$(BINARY_NAME).exe \
-		--attach $(BINARY_DIR)/$(BINARY_NAME)-macos \
-		--attach $(BINARY_DIR)/$(BINARY_NAME)-linux
+	gh release create "v$(new_version)" -F CHANGELOG.md $(BINARY_DIR)/*
+
 	@echo "Release published."
 
 clean:
