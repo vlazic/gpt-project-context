@@ -7,9 +7,11 @@ import (
 	"strings"
 )
 
-func GetFilePaths(includePatterns []string) ([]string, error) {
+// GetFilePaths returns a list of file paths in the provided root directory and its
+// subdirectories that match any of the provided patterns.
+func GetFilePaths(includePatterns []string, rootDir string) ([]string, error) {
 	filePaths := []string{}
-	err := filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(rootDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -25,13 +27,23 @@ func GetFilePaths(includePatterns []string) ([]string, error) {
 			}
 
 			if matched {
-				filePaths = append(filePaths, path)
+				// add the file path to the list of file paths, but remove the root directory
+				// from the path and / from the beginning of the path, but only if the rootDir is not "."
+				if rootDir != "." {
+					filePaths = append(filePaths, strings.TrimPrefix(path, rootDir)[1:])
+				} else {
+					filePaths = append(filePaths, path)
+				}
 				return nil
 			}
 		}
 
 		return nil
 	})
+
+	if err != nil {
+		return nil, err
+	}
 
 	return filePaths, err
 }

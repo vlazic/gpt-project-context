@@ -15,7 +15,7 @@ func main() {
 	includePatterns := strings.Split(include, ",")
 	excludePatterns := strings.Split(exclude, ",")
 
-	filePaths, err := fileutils.GetFilePaths(includePatterns)
+	filePaths, err := fileutils.GetFilePaths(includePatterns, ".")
 	if err != nil {
 		fmt.Println("Error while walking the file tree:", err)
 		return
