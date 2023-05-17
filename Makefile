@@ -50,7 +50,7 @@ github-release: clean test build-all
 	npx standard-version --release-as $(new_version)
 	git add README.md
 	git commit --amend --no-edit
-	git push --follow-tags origin master
+	# git push --follow-tags origin master
 
 	@echo "Creating a new GitHub release with the compiled binaries..."
 	gh release create "v$(new_version)" -F CHANGELOG.md $(BINARY_DIR)/*
