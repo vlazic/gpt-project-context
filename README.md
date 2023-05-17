@@ -32,7 +32,7 @@ sudo mv gpt-project-context /usr/local/bin/
 
 ```sh
 # Download the binary for Linux
-curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.2/gpt-project-context-linux"
+curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.5/gpt-project-context-linux"
 
 # Make it executable
 chmod +x gpt-project-context
