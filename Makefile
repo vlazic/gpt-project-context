@@ -29,6 +29,8 @@ github-release: build-all
 	sed -r -i "s/(vlazic\/$(BINARY_NAME)\/releases\/download\/)[^\/]+\//\1v$(new_version)\//g" README.md
 
 	npx standard-version --release-as $(new_version)
+	git add README.md
+	git commit --amend --no-edit
 	git push --follow-tags origin master
 
 	@echo "Creating a new GitHub release with the compiled binaries..."

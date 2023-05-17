@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/vlazic/gpt-project-context/compare/v1.0.1...v1.0.3) (2023-05-17)
+
+
+### Features
+
+* Create separate .go files for flags, file operations, output creation, and clipboard operations ([6106436](https://github.com/vlazic/gpt-project-context/commit/6106436abc6cd4f4eac9e20b18cc4fa590acd139))
+
+
+### Bug Fixes
+
+* Update Makefile to build all binaries before creating GitHub release ([0b84b06](https://github.com/vlazic/gpt-project-context/commit/0b84b0662979614a9a4673a9d22426992c138507))
+
 ### [1.0.2](https://github.com/vlazic/gpt-project-context/compare/v1.0.1...v1.0.2) (2023-04-28)
 
 
