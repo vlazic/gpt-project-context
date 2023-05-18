@@ -2,9 +2,58 @@
 
 <!-- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/vlazic/gpt-project-context)] -->
 
-`gpt-project-context` is a command-line tool designed to boost developers' productivity by facilitating seamless interaction with AI language models like OpenAI's ChatGPT. By scanning project files and generating a comprehensive text output consisting of code snippets, file structures, and other relevant details, developers can easily share crucial context about their projects with AI language models.
+`gpt-project-context` is a command-line tool that allows you to swiftly copy specific project files to the clipboard, and then use them as an initial prompt for ChatGPT. This prompt provides a 'context' for ChatGPT, thereby equipping it with an understanding of your project.
 
-I, as the author, use this tool for every project, and I'm confident it will help you speed up your work with projects too.
+Compared to Github Copilot, `gpt-project-context` offers greater control over context setting, leading to more relevant and precisely targeted assistance.
+
+As the author, I use this tool in all my projects and I'm confident that it will significantly enhance your efficiency while working on your projects as well.
+
+## Usage
+
+### Include and Exclude Flags
+
+`gpt-project-context` allows you to customize the files included in the output using the `-i` (include) and `-e` (exclude) flags. The `-i` flag specifies which file patterns to include, while the `-e` flag specifies which file patterns to exclude.
+
+All available flags are listed below:
+
+```txt
+Usage of gpt-project-context:
+  -e string
+        exclude patterns
+  -i string
+        include patterns
+  -n    no action, do not copy or write to clipboard
+  -o string
+        output file path
+  -p string
+        prompt at the beginning (default "Here is the context of my current project. Just respond with 'OK' and wait for the instructions:")
+```
+
+### Examples
+
+#### Go:
+
+```sh
+gpt-project-context -i '*.go,*.md' -e 'bin/*,specific_file.go'
+```
+
+#### JavaScript:
+
+```sh
+gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*,dist/*'
+```
+
+To use this tool more conveniently in a JavaScript project, add it as an npm run script in your `package.json`:
+
+```json
+{
+  "scripts": {
+    "context": "gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*,dist/*'"
+  }
+}
+```
+
+Now, you can simply run `npm run context` to execute the script.
 
 ## Installation
 
@@ -40,53 +89,6 @@ chmod +x gpt-project-context
 # Move it to your PATH
 sudo mv gpt-project-context /usr/local/bin/
 ```
-
-## Usage
-
-### Include and Exclude Flags
-
-`gpt-project-context` allows you to customize the files included in the output using the `-i` (include) and `-e` (exclude) flags. The `-i` flag specifies which file patterns to include, while the `-e` flag specifies which file patterns to exclude.
-
-All available flags are listed below:
-
-```sh
-Usage of gpt-project-context:
-  -e string
-        exclude patterns
-  -i string
-        include patterns
-  -n    no action, do not copy or write to clipboard
-  -o string
-        output file path
-  -p string
-        prompt at the beginning (default "Here is the context of my current project. Just respond with 'OK' and wait for the instructions:")
-```
-
-### Examples
-
-#### Go:
-
-```sh
-gpt-project-context -i '*.go,*.md' -e 'bin/*,*.txt'
-```
-
-#### JavaScript:
-
-```sh
-gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*'
-```
-
-To use this tool more conveniently in a JavaScript project, add it as an npm run script in your `package.json`:
-
-```json
-{
-  "scripts": {
-    "context": "gpt-project-context -i '*.js,README.md,package.json' -e 'node_modules/*'"
-  }
-}
-```
-
-Now, you can simply run `npm run context` to execute the script.
 
 ## Contributing
 
