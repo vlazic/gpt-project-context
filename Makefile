@@ -3,7 +3,7 @@ BINARY_NAME ?= gpt-project-context
 BINARY_DIR=bin
 BINARY_PATH ?= $(BINARY_DIR)/$(BINARY_NAME)
 
-.PHONY: build-linux build-windows build-macos build-all clean copy-context github-release help test
+.PHONY: build-linux build-windows build-macos build-all clean copy-context github-release help test diagram
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -16,6 +16,12 @@ help:
 	@echo "  clean          to remove the built Go binaries"
 	@echo "  help           to display this help message"
 	@echo "  test           to run the tests"
+	@echo "  diagram        to generate the sequence diagram"
+
+diagram:
+	@echo "Generating the diagram..."
+	@npx @pintora/cli render -i .github/docs/workflow-sequence-diagram.pintora -o .github/docs/workflow-sequence-diagram.svg
+	@echo "Diagram generated."
 
 clean:
 	@echo "Cleaning up the build..."

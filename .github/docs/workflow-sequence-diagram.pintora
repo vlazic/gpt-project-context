@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant Start
+    participant Command_Line as Command Line
+    participant ChatGPT as ChatGPT or OpenAI Playground
+    participant Code_Base as Code Base
+
+    loop Iterative Process
+        Start->>Command_Line: Run 'gpt-project-context' command
+        Command_Line->>ChatGPT: Paste project content
+        loop Iterative Process
+            ChatGPT->>ChatGPT: Ask for assistance
+            ChatGPT->>Code_Base: Apply changes
+        end
+        Code_Base->>Start: Reset context periodically, if project files are changed in significat way
+    end
