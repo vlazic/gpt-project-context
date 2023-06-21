@@ -5,47 +5,38 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/bmatcuk/doublestar/v4"
 )
 
 // GetFilePaths returns a list of file paths in the provided root directory and its
 // subdirectories that match any of the provided patterns.
+// GetFilePaths returns a list of file paths in the provided root directory and its
+// subdirectories that match any of the provided patterns.
 func GetFilePaths(includePatterns []string, rootDir string) ([]string, error) {
 	filePaths := []string{}
-	err := filepath.Walk(rootDir, func(path string, info os.FileInfo, err error) error {
+
+	for _, pattern := range includePatterns {
+		fs := os.DirFS(rootDir)
+		matches, err := doublestar.Glob(fs, pattern)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
-		if info.IsDir() {
-			return nil
-		}
-
-		for _, pattern := range includePatterns {
-			matched, err := filepath.Match(pattern, filepath.Base(path))
+		// add the file paths to the list of file paths, but remove the root directory
+		// from the path and / from the beginning of the path, but only if the rootDir is not "."
+		for _, match := range matches {
+			info, err := os.Stat(filepath.Join(rootDir, match))
 			if err != nil {
-				return err
+				return nil, err
 			}
-
-			if matched {
-				// add the file path to the list of file paths, but remove the root directory
-				// from the path and / from the beginning of the path, but only if the rootDir is not "."
-				if rootDir != "." {
-					filePaths = append(filePaths, strings.TrimPrefix(path, rootDir)[1:])
-				} else {
-					filePaths = append(filePaths, path)
-				}
-				return nil
+			if !info.IsDir() {
+				filePaths = append(filePaths, match)
 			}
 		}
-
-		return nil
-	})
-
-	if err != nil {
-		return nil, err
 	}
 
-	return filePaths, err
+	return filePaths, nil
 }
 
 func FilterFiles(filePaths, excludePatterns []string) []string {
@@ -64,7 +55,11 @@ func FilterFiles(filePaths, excludePatterns []string) []string {
 
 		// Check for user defined exclusions
 		for _, pattern := range excludePatterns {
-			if matched, _ := filepath.Match(pattern, file); matched {
+			matched, err := doublestar.Match(pattern, file)
+			if err != nil {
+				panic(err)
+			}
+			if matched {
 				exclude = true
 				break
 			}

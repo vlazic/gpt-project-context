@@ -15,6 +15,18 @@ func TestFilterFiles(t *testing.T) {
 	}
 	defer os.RemoveAll(tmpDir) // Cleanup
 
+	// .
+	// ├── bin
+	// │   └── binary_file
+	// ├── src
+	// │   ├── source.go
+	// │   ├── source_test.go
+	// │   └── helper.js
+	// ├── main.go
+	// ├── helper.go
+	// ├── README.md
+	// └── Makefile
+
 	testCases := []struct {
 		name              string
 		includePatterns   []string
@@ -22,32 +34,32 @@ func TestFilterFiles(t *testing.T) {
 		expectedFilePaths []string
 	}{
 		{
-			name:              "include *.go and *.md and Makefile, exclude src_*.js",
-			includePatterns:   []string{"*.go", "*.md", "Makefile"},
-			excludePatterns:   []string{"src/*.js"},
-			expectedFilePaths: []string{"src/source.go", "main.go", "helper.go", "README.md", "Makefile", "src/source_test.go"},
+			name:              "include all .go and .md, Makefile, exclude src/source.go",
+			includePatterns:   []string{"**/*.go", "**/*.md", "Makefile"},
+			excludePatterns:   []string{"src/source.go"},
+			expectedFilePaths: []string{"main.go", "helper.go", "README.md", "Makefile", "src/source_test.go"},
 		},
 		{
-			name:              "include only *.js files and Makefile",
-			includePatterns:   []string{"*.js", "Makefile"},
+			name:              "include all .js files and Makefile",
+			includePatterns:   []string{"**/*.js", "Makefile"},
 			excludePatterns:   []string{},
 			expectedFilePaths: []string{"src/helper.js", "Makefile"},
 		},
 		{
-			name:              "include *.go files, exclude specific go file",
-			includePatterns:   []string{"*.go"},
+			name:              "include all .go files, exclude specific .go file",
+			includePatterns:   []string{"**/*.go"},
 			excludePatterns:   []string{"main.go"},
 			expectedFilePaths: []string{"src/source.go", "helper.go", "src/source_test.go"},
 		},
 		{
-			name:              "include *.go files, exclude go files in src folder",
-			includePatterns:   []string{"*.go"},
+			name:              "include all .go files, exclude .go files in src folder",
+			includePatterns:   []string{"**/*.go"},
 			excludePatterns:   []string{"src/*.go"},
 			expectedFilePaths: []string{"main.go", "helper.go"},
 		},
 		{
-			name:              "include *.go files, exclude *_test.go files",
-			includePatterns:   []string{"*.go"},
+			name:              "include all .go files, exclude *_test.go files",
+			includePatterns:   []string{"**/*.go"},
 			excludePatterns:   []string{"*/*_test.go"},
 			expectedFilePaths: []string{"src/source.go", "main.go", "helper.go"},
 		},
@@ -94,7 +106,18 @@ func setupMockProject() (string, error) {
 		return "", err
 	}
 
-	// Define the file structure
+	// Define the file structure:
+	// 	.
+	// ├── bin
+	// │   └── binary_file
+	// ├── src
+	// │   ├── source.go
+	// │   ├── source_test.go
+	// │   └── helper.js
+	// ├── main.go
+	// ├── helper.go
+	// ├── README.md
+	// └── Makefile
 	files := map[string]string{
 		"bin/binary_file":    "",
 		"src/source.go":      "package src",
