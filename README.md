@@ -75,7 +75,7 @@ To quickly install `gpt-project-context` using binaries from GitHub release, fol
 
 ```sh
 # Download the binary for macOS
-curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.4/gpt-project-context-macos"
+curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.1.0/gpt-project-context-macos"
 
 # Make it executable
 chmod +x gpt-project-context
@@ -93,7 +93,7 @@ sudo mv gpt-project-context /usr/local/bin/
 
 ```sh
 # Download the binary for Linux
-curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.0.4/gpt-project-context-linux"
+curl -L -o gpt-project-context "https://github.com/vlazic/gpt-project-context/releases/download/v1.1.0/gpt-project-context-linux"
 
 # Make it executable
 chmod +x gpt-project-context
