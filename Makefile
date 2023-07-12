@@ -53,11 +53,11 @@ build-all: build-linux build-windows build-macos
 github-release: clean test build-all
 	sed -r -i "s/(vlazic\/$(BINARY_NAME)\/releases\/download\/)[^\/]+\//\1v$(new_version)\//g" README.md
 
-	npx standard-version --commit-all --release-as $(new_version)
+	npx standard-version --commit-all --skip.tag --release-as $(new_version)
 	git add README.md
 	git commit --amend --no-edit
-	git tag -d "v$(new_version)"
-	git commit --amend --no-edit --message "chore(release): Updated CHANGELOG.md and version refference in README.md"
+	# git tag -d "v$(new_version)"
+	# git commit --amend --no-edit --message "chore(release): Updated CHANGELOG.md and version refference in README.md"
 
 	# git push --follow-tags origin master
 

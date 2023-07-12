@@ -12,7 +12,7 @@ This control enables you to create precise prompts and obtain accurate assistanc
 
 My typical workflow with this tool involves the following steps:
 
-1. To obtain a list of files for a specific project, I run the command `gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/*,**/dist/*'` (for a JavaScript project, for example). This command selects the desired files based on the specified patterns and copies their content to the clipboard.
+1. To obtain a list of files for a specific project, I run the command `gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/**,**/dist/**'` (for a JavaScript project, for example). This command selects the desired files based on the specified patterns and copies their content to the clipboard.
 
 2. Next, I paste the copied content as the first message in ChatGPT or OpenAI Playground. This sets the initial context for the conversation, providing relevant information about the project to assist ChatGPT in generating accurate responses.
 
@@ -52,7 +52,7 @@ gpt-project-context -i '**/*.go,**/*.md' -e '**/bin/*,**/specific_file.go'
 #### JavaScript:
 
 ```sh
-gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/*,**/dist/*'
+gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/**,**/dist/**'
 ```
 
 To use this tool more conveniently in a JavaScript project, add it as an npm run script in your `package.json`:
@@ -60,7 +60,7 @@ To use this tool more conveniently in a JavaScript project, add it as an npm run
 ```json
 {
   "scripts": {
-    "context": "gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/*,**/dist/*'"
+    "context": "gpt-project-context -i '**/*.js,README.md,package.json' -e '**/node_modules/**,**/dist/**'"
   }
 }
 ```

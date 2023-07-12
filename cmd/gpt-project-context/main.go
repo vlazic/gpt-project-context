@@ -27,8 +27,8 @@ func main() {
 	if len(filteredFiles) == 0 {
 		fmt.Println("No files found.")
 		// sample usage
-		fmt.Println("Example usage Go: Usage: context -i '*.go,*.md' -e 'bin/*,*.txt'")
-		fmt.Println("Example usage JS: Usage: context -i '*.js,README.md,package.json' -e 'node_modules/*'")
+		fmt.Println("Example usage Go: Usage: context -i '*.go,*.md' -e 'bin/**,*.txt'")
+		fmt.Println("Example usage JS: Usage: context -i '*.js,README.md,package.json' -e 'node_modules/**'")
 
 		os.Exit(1)
 	}
@@ -70,14 +70,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	fmt.Println("\nTotal tokens:", totalTokens)
+
 	if totalTokens > 8192 {
 		// ASCII escape code to set text color to yellow
-		fmt.Print("\033[33m")
+		fmt.Print("\n\n\033[33m")
 		fmt.Println("\nWarning: token limit exceeded 8192 tokens!\nIf you get an error from ChatGPT or OpenAI GPT API, try to reduce the number of files.\nFor more details about the token limit, see https://platform.openai.com/docs/models/overview")
 		// ASCII escape code to reset text color
 		fmt.Print("\033[0m")
-	} else {
-		fmt.Println("\nTotal tokens:", totalTokens)
 	}
 
 	fmt.Println("\n🥳 Copied to clipboard! Go paste it in ChatGPT.")
